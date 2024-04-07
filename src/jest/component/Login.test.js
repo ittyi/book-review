@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import Login from '../../component/Login.jsx';
 
 test('ログインフォームが存在するか', () => {
-  render(<App />);
+  render(<Login />);
+
   const emailForm = screen.getByText(/email/i);
   expect(emailForm).toBeInTheDocument();
 

@@ -4,10 +4,39 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { Signup } from './pages/Signup';
+import { Login } from './pages/Login';
+
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { CookiesProvider } from "react-cookie";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <CookiesProvider>
+        <RouterProvider router={router} />  
+      </CookiesProvider>
+    </Provider>
   </React.StrictMode>
 );
 
