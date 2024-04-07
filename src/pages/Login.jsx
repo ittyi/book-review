@@ -29,7 +29,7 @@ export const Login = () => {
         nav("/");
       })
       .catch((err) => {
-        setErrorMessage(`サインインに失敗しました。${err}`);
+        setErrorMessage(`サインインに失敗しました。${err.response.data.ErrorMessageJP}`);
       });
   };
 
@@ -47,6 +47,7 @@ export const Login = () => {
             type="email"
             className="email-input"
             onChange={handleEmailChange}
+            required
           />
           <br />
           <label className="password-label">パスワード</label>
@@ -55,6 +56,7 @@ export const Login = () => {
             type="password"
             className="password-input"
             onChange={handlePasswordChange}
+            required
           />
           <br />
           <button type="button" className="signin-button" onClick={onSignIn}>

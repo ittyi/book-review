@@ -26,6 +26,10 @@ export function Signup() {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleIcon = (e) => setIcon(e.target.files[0]);
   const onSignUp = () => {
+    if (!icon) {
+      setErrorMessge("サインアップに失敗しました。アイコンを選択してください。")
+      return
+    }
     const data = {
       email: email,
       name: name,
@@ -47,7 +51,6 @@ export function Signup() {
             const imageReq = `${url}/uploads`;
             let formData = new FormData()
             formData.append('icon', result);
-            console.log("formData: ", formData);
             axios
               .post(imageReq, formData, {
                 headers: {
@@ -66,7 +69,7 @@ export function Signup() {
         });
       })
       .catch((err) => {
-        setErrorMessge(`サインアップに失敗しました。 ${err}`);
+        setErrorMessge(`サインアップに失敗しました。 ${err.response.data.ErrorMessageJP}`);
       });
 
     if (auth) return <Navigate to="/" />;
@@ -84,6 +87,7 @@ export function Signup() {
             type="email"
             onChange={handleEmailChange}
             className="email-input"
+            required
           />
           <br />
           <label>ユーザ名</label>
@@ -92,6 +96,7 @@ export function Signup() {
             type="text"
             onChange={handleNameChange}
             className="name-input"
+            required
           />
           <br />
           <label>パスワード</label>
@@ -100,9 +105,18 @@ export function Signup() {
             type="password"
             onChange={handlePasswordChange}
             className="password-input"
+            required
           />
           <br />
-          <input type="file" id="file" accept="image/*" onChange={handleIcon} />
+          <label>アイコン</label>
+          <br />
+          <input 
+            type="file" 
+            id="file" 
+            accept="image/*" 
+            onChange={handleIcon} 
+            required
+          />
           <br />
           <button type="button" onClick={onSignUp} className="signup-button">
             作成
