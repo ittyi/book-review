@@ -4,8 +4,8 @@ import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import { signIn } from "../authSlice";
-import { Header } from "../components/Header";
 import { url } from "../const";
+import Compressor from "compressorjs";
 
 export function Signup() {
   const nav = useNavigate();
@@ -16,6 +16,7 @@ export function Signup() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessge] = useState();
   const [cookies, setCookie, removeCookie] = useCookies();
+  const [icon, setIcon] = useState();
 
   // 一旦無理やり使う
   console.log(cookies);
@@ -23,6 +24,7 @@ export function Signup() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleNameChange = (e) => setName(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleIcon = (e) => setIcon(e.target.files[0]);
   const onSignUp = () => {
     const data = {
       email: email,
@@ -30,16 +32,38 @@ export function Signup() {
       password: password,
     };
 
-    console.log("url: ", url)
-    const req = `${url}/users`
-    console.log("req: ", req)
+    const req = `${url}/users`;
     axios
       .post(req, data)
       .then((res) => {
         const token = res.data.token;
         dispatch(signIn());
         setCookie("token", token);
-        nav("/");
+
+        new Compressor(icon, {
+          quality: 0.6,
+          success(result) {
+
+            const imageReq = `${url}/uploads`;
+            let formData = new FormData()
+            formData.append('icon', result);
+            console.log("formData: ", formData);
+            axios
+              .post(imageReq, formData, {
+                headers: {
+                  "content-type": "multipart/form-data",
+                  authorization: `Bearer ${res.data.token}`,
+                },
+              })
+              .then((response) => {
+                console.log(response);
+                nav("/");
+              });
+          },
+          maxWidth: 1000,
+          maxHeight: 400,
+          mimeType: "image/png",
+        });
       })
       .catch((err) => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`);
@@ -47,9 +71,9 @@ export function Signup() {
 
     if (auth) return <Navigate to="/" />;
   };
+
   return (
     <div>
-      <Header />
       <main className="signup">
         <h2>新規作成</h2>
         <p className="error-message">{errorMessage}</p>
@@ -78,6 +102,8 @@ export function Signup() {
             className="password-input"
           />
           <br />
+          <input type="file" id="file" accept="image/*" onChange={handleIcon} />
+          <br />
           <button type="button" onClick={onSignUp} className="signup-button">
             作成
           </button>
@@ -85,4 +111,4 @@ export function Signup() {
       </main>
     </div>
   );
-};
+}

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate, Navigate, Link } from "react-router-dom";
-import { Header } from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../authSlice";
 import { url } from "../const";
@@ -38,9 +37,8 @@ export const Login = () => {
 
   return (
     <div>
-      <Header />
       <main className="signin">
-        <h2>サインイン</h2>
+        <h2>ログイン</h2>
         <p className="error-message">{errorMessage}</p>
         <form className="signin-form">
           <label className="email-label">メールアドレス</label>
