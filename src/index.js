@@ -1,18 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-// import App from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Signup from './component/Signup';
+import Login from './component/Login';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <App />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
