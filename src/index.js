@@ -8,8 +8,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Signup } from './component/Signup';
-import Login from './component/Login';
+import { Signup } from './pages/Signup';
+import { Login } from './pages/Login';
 
 import { Provider } from "react-redux";
 import { store } from "./store";
