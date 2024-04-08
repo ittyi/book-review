@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { useNavigate, Navigate, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { signIn } from "../authSlice";
 import { url } from "../const";
 
 export const Login = () => {
-  const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const nav = useNavigate();
   const [email, setEmail] = useState("");
@@ -32,8 +31,6 @@ export const Login = () => {
         setErrorMessage(`サインインに失敗しました。${err.response.data.ErrorMessageJP}`);
       });
   };
-
-  if (auth) return <Navigate to="/" />;
 
   return (
     <div>

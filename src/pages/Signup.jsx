@@ -1,15 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { signIn } from "../authSlice";
 import { url } from "../const";
 import Compressor from "compressorjs";
 
 export function Signup() {
   const nav = useNavigate();
-  const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -71,8 +70,6 @@ export function Signup() {
       .catch((err) => {
         setErrorMessge(`サインアップに失敗しました。 ${err.response.data.ErrorMessageJP}`);
       });
-
-    if (auth) return <Navigate to="/" />;
   };
 
   return (
