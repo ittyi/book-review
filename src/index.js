@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {
@@ -10,6 +9,7 @@ import {
 } from "react-router-dom";
 import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
+import { Home } from './pages/Home';
 
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -18,7 +18,7 @@ import { CookiesProvider } from "react-cookie";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
     path: "/signup",
