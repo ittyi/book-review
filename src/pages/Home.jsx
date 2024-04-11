@@ -26,7 +26,7 @@ export const Home = () => {
       <Header />
       <main className="main">
         <div className="book-list">
-          <h2 className="book-list__heading">書籍レビュー 一覧</h2>
+          <h2 className="book-list__heading">書籍 一覧</h2>
           <ul className="book-list__content">
             {listBook.map((book) => (
               <li key={String(book.id)} className="book-list__book-title">

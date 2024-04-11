@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "../authSlice";
 import axios from "axios";
 import { url } from "../const";
+import "./header.scss";
 
 export const Header = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -38,20 +39,19 @@ export const Header = () => {
 
   return (
     <header className="header">
-      <h1>書籍レビュー</h1>
-      {auth ? (
-        <button onClick={handleSignOut} className="sign-out-button">
-          サインアウト
-        </button>
-      ) : (
-        <></>
-      )}
-      <p>
-        <img
-          src={icon}
-          alt="User Icon"
-        />
-      </p>
+      <h1 className="header__heading">書籍レビュー</h1>
+      <div className="header__nav">
+        <p className="header__icon">
+          <img src={icon} alt="User Icon" width="50" height="50" />
+        </p>
+        {auth ? (
+          <button onClick={handleSignOut} className="header__btn">
+            サインアウト
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
     </header>
   );
 };
