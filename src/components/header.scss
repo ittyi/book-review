@@ -1,0 +1,29 @@
+.header {
+  height: 60px;
+  background: #b0c4de;
+  color: #fff;
+  width: 100%;
+  padding-left: 1%;
+  padding-right: 1%;
+
+  &__heading {
+    margin: 0;
+    line-height: 50px;
+    float: left;
+    font-size: large;
+  }
+
+  &__nav {
+    width: 11%;
+    float: right;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__icon{
+    padding-right: 1%;
+  }
+  &__btn{
+    padding-right: 1%;
+  }
+}
