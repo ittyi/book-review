@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { url } from "../const";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Header } from "../components/Header";
+import { useSelector } from "react-redux";
 
 export const EditProfile = () => {
 	const [name, setName] = useState("");
@@ -34,6 +35,25 @@ export const EditProfile = () => {
         );
       });
 	};
+
+	const auth = useSelector((state) => state.auth.isSignIn);
+	useEffect(() => {
+    if (!auth) {
+			nav("/login")
+      return;
+    }
+		
+		axios
+      .get(`${url}/users`, {
+        headers: {
+          authorization: `Bearer ${cookies.token}`,
+        },
+      })
+      .then((res) => {
+        setName(res.data.name);
+      });
+  }, [auth, nav, cookies.token]);
+
   return (
     <>
 			<Header />
@@ -41,7 +61,12 @@ export const EditProfile = () => {
       <form className="edit-profile-form">
         <label className="">ユーザーネーム</label>
         <br />
-        <input type="text" onChange={handleProfileChange} required />
+        <input 
+					type="text" 
+					onChange={handleProfileChange} 
+					value={name}
+					required 
+				/>
         <br />
         <button type="button" className="" onClick={onEditProfile}>
           編集
