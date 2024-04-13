@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Header } from "../components/Header";
+import { Pagination } from "../components/Pagination";
 import { url } from "../const";
 import "./book-list.scss";
 import "./main.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { returnToTop, back, next } from "../paginationReducer";
+import { useSelector } from "react-redux";
 
 export const Home = () => {
-  const dispatch = useDispatch();
   const storeOffset = useSelector((state) => state.pagination.offset);
   const [listBook, setListBook] = useState([]);
   const [cookies] = useCookies();
-  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     fetch(`${url}/books?offset=${storeOffset}`, {
@@ -29,18 +27,6 @@ export const Home = () => {
       });
   }, [cookies.token, storeOffset]);
 
-  const resetOffset = () => {
-    dispatch(returnToTop());
-  }
-
-  const backOffset = () => {
-    dispatch(back());
-  }
-
-  const nextOffset = () => {
-    dispatch(next());
-  }
-
   return (
     <div className="App">
       <Header />
@@ -54,21 +40,7 @@ export const Home = () => {
               </li>
             ))}
           </ul>
-          <button
-            onClick={resetOffset}
-          >
-            最初へ戻る
-          </button>
-          <button
-            onClick={backOffset}
-          >
-            1つ前に戻る
-          </button>
-          <button
-            onClick={nextOffset}
-          >
-            次へ
-          </button>
+          < Pagination />
         </div>
       </main>
     </div>
