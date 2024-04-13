@@ -7,6 +7,7 @@ import "./book-list.scss";
 import "./main.scss";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const storeOffset = useSelector((state) => state.pagination.offset);
@@ -57,7 +58,9 @@ export const Home = () => {
           <ul className="book-list__content">
             {listBook.map((book) => (
               <li key={String(book.id)} className="book-list__book-title">
-                {book.title}
+                <Link to={`/detail/${book.id}`} state={book.title}>
+                  {book.title}
+                </Link>
               </li>
             ))}
           </ul>
