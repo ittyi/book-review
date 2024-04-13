@@ -14,7 +14,10 @@ export const paginationReducers = createSlice({
     next: (state) => {
       state.offset += 10;
     },
+    back: (state) => {
+      state.offset -= 10;
+    },
   },
 });
 
-export const { returnToTop, next } = paginationReducers.actions;
+export const { returnToTop, next, back } = paginationReducers.actions;

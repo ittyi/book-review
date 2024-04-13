@@ -5,7 +5,7 @@ import { url } from "../const";
 import "./book-list.scss";
 import "./main.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { returnToTop } from "../paginationReducer";
+import { returnToTop, back, next } from "../paginationReducer";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -29,8 +29,16 @@ export const Home = () => {
       });
   }, [cookies.token, storeOffset]);
 
-  const resetffset = () => {
+  const resetOffset = () => {
     dispatch(returnToTop());
+  }
+
+  const backOffset = () => {
+    dispatch(back());
+  }
+
+  const nextOffset = () => {
+    dispatch(next());
   }
 
   return (
@@ -47,8 +55,20 @@ export const Home = () => {
             ))}
           </ul>
           <button
-            onClick={resetffset}
-          >最初へ戻る</button>
+            onClick={resetOffset}
+          >
+            最初へ戻る
+          </button>
+          <button
+            onClick={backOffset}
+          >
+            1つ前に戻る
+          </button>
+          <button
+            onClick={nextOffset}
+          >
+            次へ
+          </button>
         </div>
       </main>
     </div>
