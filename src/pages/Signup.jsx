@@ -27,8 +27,10 @@ export function Signup() {
   const handleIcon = (e) => setIcon(e.target.files[0]);
   const onSignUp = () => {
     if (!icon) {
-      setErrorMessge("サインアップに失敗しました。アイコンを選択してください。")
-      return
+      setErrorMessge(
+        "サインアップに失敗しました。アイコンを選択してください。"
+      );
+      return;
     }
     const data = {
       email: email,
@@ -47,10 +49,9 @@ export function Signup() {
         new Compressor(icon, {
           quality: 0.6,
           success(result) {
-
             const imageReq = `${url}/uploads`;
-            let formData = new FormData()
-            formData.append('icon', result);
+            let formData = new FormData();
+            formData.append("icon", result);
             axios
               .post(imageReq, formData, {
                 headers: {
@@ -69,7 +70,9 @@ export function Signup() {
         });
       })
       .catch((err) => {
-        setErrorMessge(`サインアップに失敗しました。 ${err.response.data.ErrorMessageJP}`);
+        setErrorMessge(
+          `サインアップに失敗しました。 ${err.response.data.ErrorMessageJP}`
+        );
       });
   };
 
@@ -115,11 +118,11 @@ export function Signup() {
           <br />
           <label>アイコン</label>
           <br />
-          <input 
-            type="file" 
-            id="file" 
-            accept="image/*" 
-            onChange={handleIcon} 
+          <input
+            type="file"
+            id="file"
+            accept="image/*"
+            onChange={handleIcon}
             required
           />
           <br />

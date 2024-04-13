@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    offset: 10,
-}
+  offset: 10,
+};
 
 export const paginationReducers = createSlice({
   name: "pagination",

@@ -26,7 +26,7 @@ export const Header = () => {
 
   useEffect(() => {
     if (!auth) {
-      return
+      return;
     }
 
     axios
