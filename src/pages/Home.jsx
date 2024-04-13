@@ -6,7 +6,7 @@ import "./book-list.scss";
 import "./main.scss";
 
 export const Home = () => {
-  const [listBook, setListBook] = useState([{}]);
+  const [listBook, setListBook] = useState([]);
   const [cookies] = useCookies();
 
   useEffect(() => {
