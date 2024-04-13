@@ -4,22 +4,34 @@ import { Header } from "../components/Header";
 import { url } from "../const";
 import "./book-list.scss";
 import "./main.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { returnToTop } from "../paginationReducer";
 
 export const Home = () => {
+  const dispatch = useDispatch();
+  const storeOffset = useSelector((state) => state.pagination.offset);
   const [listBook, setListBook] = useState([]);
   const [cookies] = useCookies();
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetch(url + "/books", {
+    fetch(`${url}/books?offset=${storeOffset}`, {
       headers: {
         authorization: `Bearer ${cookies.token}`,
       },
+      params: {
+        offset: storeOffset,
+      }
     })
       .then((res) => res.json())
       .then((data) => {
         setListBook(data);
       });
-  }, [cookies.token]);
+  }, [cookies.token, storeOffset]);
+
+  const resetffset = () => {
+    dispatch(returnToTop());
+  }
 
   return (
     <div className="App">
@@ -34,6 +46,9 @@ export const Home = () => {
               </li>
             ))}
           </ul>
+          <button
+            onClick={resetffset}
+          >最初へ戻る</button>
         </div>
       </main>
     </div>
