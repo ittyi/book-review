@@ -3,6 +3,7 @@ import axios from "axios";
 import { url } from "../const";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { Header } from "../components/Header";
 
 export const EditProfile = () => {
 	const [name, setName] = useState("");
@@ -35,7 +36,7 @@ export const EditProfile = () => {
 	};
   return (
     <>
-      test
+			<Header />
 			<p className="error-message">{errorMessage}</p>
       <form className="edit-profile-form">
         <label className="">ユーザーネーム</label>
