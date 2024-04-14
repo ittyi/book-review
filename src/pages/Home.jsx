@@ -9,10 +9,21 @@ import { useSelector } from "react-redux";
 
 export const Home = () => {
   const storeOffset = useSelector((state) => state.pagination.offset);
+  const auth = useSelector((state) => state.auth.isSignIn);
   const [listBook, setListBook] = useState([]);
   const [cookies] = useCookies();
 
   useEffect(() => {
+    if (!auth) {
+      fetch(`${url}/public/books?offset=${storeOffset}`, {
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setListBook(data);
+        });
+      return
+    }
+
     fetch(`${url}/books?offset=${storeOffset}`, {
       headers: {
         authorization: `Bearer ${cookies.token}`,

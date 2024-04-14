@@ -18,11 +18,17 @@ export const Header = () => {
     nav("/login");
   };
 
+  const handleLogin = () => {
+    nav("/login");
+  };
+
   const [icon, setIcon] = useState();
 
   useEffect(() => {
-    /* 第1引数には実行させたい副作用関数を記述*/
-    console.log("副作用関数が実行されました！");
+    if (!auth) {
+      return
+    }
+
     axios
       .get(`${url}/users`, {
         headers: {
@@ -32,7 +38,7 @@ export const Header = () => {
       .then((res) => {
         setIcon(res.data.iconUrl);
       });
-  }, [cookies.token]);
+  }, [cookies.token, auth, nav]);
   // 一旦無理やり使う
   console.log(cookies);
   console.log(typeof setCookie);
@@ -41,15 +47,21 @@ export const Header = () => {
     <header className="header">
       <h1 className="header__heading">書籍レビュー</h1>
       <div className="header__nav">
-        <p className="header__icon">
-          <img src={icon} alt="User Icon" width="50" height="50" />
-        </p>
         {auth ? (
-          <button onClick={handleSignOut} className="header__btn">
-            サインアウト
-          </button>
+          <>
+            <p className="header__icon">
+              <img src={icon} alt="User Icon" width="50" height="50" />
+            </p>
+            <button onClick={handleSignOut} className="header__btn">
+              サインアウト
+            </button>
+          </>
         ) : (
-          <></>
+          <>
+            <button onClick={handleLogin} className="header__btn">
+              ログイン
+            </button>
+          </>
         )}
       </div>
     </header>
