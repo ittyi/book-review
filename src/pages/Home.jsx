@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Header } from "../components/Header";
+import { Pagination } from "../components/Pagination";
 import { url } from "../const";
 import "./book-list.scss";
 import "./main.scss";
+import { useSelector } from "react-redux";
 
 export const Home = () => {
-  const [listBook, setListBook] = useState([{}]);
+  const storeOffset = useSelector((state) => state.pagination.offset);
+  const [listBook, setListBook] = useState([]);
   const [cookies] = useCookies();
 
   useEffect(() => {
-    fetch(url + "/books", {
+    fetch(`${url}/books?offset=${storeOffset}`, {
       headers: {
         authorization: `Bearer ${cookies.token}`,
       },
+      params: {
+        offset: storeOffset,
+      }
     })
       .then((res) => res.json())
       .then((data) => {
         setListBook(data);
       });
-  }, [cookies.token]);
+  }, [cookies.token, storeOffset]);
 
   return (
     <div className="App">
@@ -34,6 +40,7 @@ export const Home = () => {
               </li>
             ))}
           </ul>
+          < Pagination />
         </div>
       </main>
     </div>
