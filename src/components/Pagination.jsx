@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { returnToTop, back, next } from "../paginationReducer";
 
 export const Pagination = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const resetOffset = () => {
     dispatch(returnToTop());
   };

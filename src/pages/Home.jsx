@@ -15,13 +15,12 @@ export const Home = () => {
 
   useEffect(() => {
     if (!auth) {
-      fetch(`${url}/public/books?offset=${storeOffset}`, {
-      })
+      fetch(`${url}/public/books?offset=${storeOffset}`, {})
         .then((res) => res.json())
         .then((data) => {
           setListBook(data);
         });
-      return
+      return;
     }
 
     fetch(`${url}/books?offset=${storeOffset}`, {
@@ -30,7 +29,7 @@ export const Home = () => {
       },
       params: {
         offset: storeOffset,
-      }
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -51,7 +50,7 @@ export const Home = () => {
               </li>
             ))}
           </ul>
-          < Pagination />
+          <Pagination />
         </div>
       </main>
     </div>

@@ -1,15 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { Signup } from './pages/Signup';
-import { Login } from './pages/Login';
-import { Home } from './pages/Home';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Signup } from "./pages/Signup";
+import { Login } from "./pages/Login";
+import { Home } from "./pages/Home";
 
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -34,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <CookiesProvider>
-        <RouterProvider router={router} />  
+        <RouterProvider router={router} />
       </CookiesProvider>
     </Provider>
   </React.StrictMode>

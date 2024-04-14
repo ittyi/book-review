@@ -29,7 +29,9 @@ export const Login = () => {
         nav("/");
       })
       .catch((err) => {
-        setErrorMessage(`サインインに失敗しました。${err.response.data.ErrorMessageJP}`);
+        setErrorMessage(
+          `サインインに失敗しました。${err.response.data.ErrorMessageJP}`
+        );
       });
   };
 
