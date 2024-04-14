@@ -35,7 +35,7 @@ export const Home = () => {
       .then((data) => {
         setListBook(data);
       });
-  }, [cookies.token, storeOffset]);
+  }, [cookies.token, storeOffset, auth]);
 
   return (
     <div className="App">

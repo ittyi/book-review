@@ -17,12 +17,16 @@ export const Header = () => {
     removeCookie("token");
     nav("/login");
   };
+  const handleEditProfile = () => {
+    nav("/profile");
+  };
 
   const handleLogin = () => {
     nav("/login");
   };
 
   const [icon, setIcon] = useState();
+  const [name, setName] = useState();
 
   useEffect(() => {
     if (!auth) {
@@ -37,6 +41,7 @@ export const Header = () => {
       })
       .then((res) => {
         setIcon(res.data.iconUrl);
+        setName(res.data.name);
       });
   }, [cookies.token, auth, nav]);
   // 一旦無理やり使う
@@ -49,11 +54,21 @@ export const Header = () => {
       <div className="header__nav">
         {auth ? (
           <>
-            <p className="header__icon">
-              <img src={icon} alt="User Icon" width="50" height="50" />
-            </p>
+            <div>
+              <p className="header__icon">
+                <img src={icon} alt="User Icon" width="50" height="50" />
+              </p>
+            </div>
+            <div>
+              <p className="">
+                {name}
+              </p>
+            </div>
             <button onClick={handleSignOut} className="header__btn">
               サインアウト
+            </button>
+            <button onClick={handleEditProfile} className="header__btn">
+              プロフィールを編集
             </button>
           </>
         ) : (
