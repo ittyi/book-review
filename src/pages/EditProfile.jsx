@@ -31,7 +31,7 @@ export const EditProfile = () => {
       })
       .catch((err) => {
         setErrorMessage(
-          `サインインに失敗しました。${err.response.data.ErrorMessageJP}`
+          `${err.response.data.ErrorMessageJP}`
         );
       });
 	};
