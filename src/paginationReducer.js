@@ -15,7 +15,7 @@ export const paginationReducers = createSlice({
       state.offset += 10;
     },
     back: (state) => {
-      if (state.offset > 10) {
+      if (state.offset > 0) {
         state.offset -= 10;
       } 
     },
