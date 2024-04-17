@@ -64,6 +64,7 @@ export const Home = () => {
       .then((res) => {
         if (name === res.data.reviewer) {
           console.log("一致しました！");
+          nav(`/edit/${bookId}`);
         } else {
           console.log("一致しませんでした！");
           const data = {
