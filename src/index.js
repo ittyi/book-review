@@ -10,6 +10,7 @@ import { Home } from "./pages/Home";
 import { EditProfile } from "./pages/EditProfile";
 import { PostBookReview } from "./pages/PostBookReview";
 import { BookReviewDetail } from "./pages/BookReviewDetail";
+import { BookReviewEdit } from "./pages/BookReviewEdit";
 
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/detail/:id",
     element: <BookReviewDetail />,
+  },
+  {
+    path: "/edit/:id",
+    element: <BookReviewEdit />,
   },
 ]);
 

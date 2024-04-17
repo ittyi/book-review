@@ -23,7 +23,7 @@ export const BookReviewDetail = () => {
       nav("/login");
       return;
     }
-	setLoading(true);
+    setLoading(true);
 
     axios
       .get(`${url}/books/${id}`, {
@@ -35,7 +35,7 @@ export const BookReviewDetail = () => {
         setTitle(res.data.title);
         setBookurl(res.data.url);
         setReview(res.data.review);
-		setLoading(false);
+        setLoading(false);
       })
       .catch((err) => {
         setErrorMessage(`${err.response.data.ErrorMessageJP}`);
