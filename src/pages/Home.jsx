@@ -16,6 +16,8 @@ export const Home = () => {
   const [listBook, setListBook] = useState([]);
   const [cookies] = useCookies();
   const nav = useNavigate();
+  const [errorMessage, setErrorMessage] = useState();
+  const [name, setName] = useState();
 
   useEffect(() => {
     if (!auth) {
@@ -26,6 +28,16 @@ export const Home = () => {
         });
       return;
     }
+
+    axios
+      .get(`${url}/users`, {
+        headers: {
+          authorization: `Bearer ${cookies.token}`,
+        },
+      })
+      .then((res) => {
+        setName(res.data.name);
+      });
 
     fetch(`${url}/books?offset=${storeOffset}`, {
       headers: {
@@ -39,40 +51,58 @@ export const Home = () => {
   }, [cookies.token, storeOffset, auth]);
 
   const handlePostBookReview = () => {
-    nav("/new")
-  }
+    nav("/new");
+  };
 
   const createLogByAccessBookReviewDetails = (bookId) => {
-    const data = {
-      selectBookId: bookId,
-    };
-
     axios
-    .post(`${url}/logs`, data, {
-      headers: {
-        authorization: `Bearer ${cookies.token}`,
-      },
-    })
-      .then((res) => {
-        console.log(res)
+      .get(`${url}/books/${bookId}`, {
+        headers: {
+          authorization: `Bearer ${cookies.token}`,
+        },
       })
-  }
+      .then((res) => {
+        if (name === res.data.reviewer) {
+          console.log("一致しました！");
+        } else {
+          console.log("一致しませんでした！");
+          const data = {
+            selectBookId: bookId,
+          };
+
+          axios
+            .post(`${url}/logs`, data, {
+              headers: {
+                authorization: `Bearer ${cookies.token}`,
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              nav(`/detail/${bookId}`);
+            });
+        }
+      })
+      .catch((err) => {
+        setErrorMessage(`${err.response.data.ErrorMessageJP}`);
+      });
+  };
 
   return (
     <div className="App">
       <Header />
       <main className="main">
+        <p className="error-message">{errorMessage}</p>
         <div className="book-list">
           <h2 className="book-list__heading">書籍 一覧</h2>
           <div>
-            <button onClick={handlePostBookReview}>
-              書籍登録
-            </button>
+            <button onClick={handlePostBookReview}>書籍登録</button>
           </div>
           <ul className="book-list__content">
             {listBook.map((book) => (
               <li key={String(book.id)} className="book-list__book-title">
-                <Link to={`/detail/${book.id}`} state={book.title} onClick={() => createLogByAccessBookReviewDetails(book.id)}>
+                <Link
+                  onClick={() => createLogByAccessBookReviewDetails(book.id)}
+                >
                   {book.title}
                 </Link>
               </li>
