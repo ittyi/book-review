@@ -7,6 +7,8 @@ import "./book-list.scss";
 import "./main.scss";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const Home = () => {
   const storeOffset = useSelector((state) => state.pagination.offset);
@@ -17,7 +19,7 @@ export const Home = () => {
 
   useEffect(() => {
     if (!auth) {
-      fetch(`${url}/public/books?offset=${storeOffset}`, {})
+      fetch(`${url}/public/books?offset=${storeOffset}`)
         .then((res) => res.json())
         .then((data) => {
           setListBook(data);
@@ -29,9 +31,6 @@ export const Home = () => {
       headers: {
         authorization: `Bearer ${cookies.token}`,
       },
-      params: {
-        offset: storeOffset,
-      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -41,6 +40,22 @@ export const Home = () => {
 
   const handlePostBookReview = () => {
     nav("/new")
+  }
+
+  const createLogByAccessBookReviewDetails = (bookId) => {
+    const data = {
+      selectBookId: bookId,
+    };
+
+    axios
+    .post(`${url}/logs`, data, {
+      headers: {
+        authorization: `Bearer ${cookies.token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+      })
   }
 
   return (
@@ -57,7 +72,9 @@ export const Home = () => {
           <ul className="book-list__content">
             {listBook.map((book) => (
               <li key={String(book.id)} className="book-list__book-title">
-                {book.title}
+                <Link to={`/detail/${book.id}`} state={book.title} onClick={() => createLogByAccessBookReviewDetails(book.id)}>
+                  {book.title}
+                </Link>
               </li>
             ))}
           </ul>

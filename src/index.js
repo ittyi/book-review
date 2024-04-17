@@ -9,6 +9,7 @@ import { Login } from "./pages/Login";
 import { Home } from "./pages/Home";
 import { EditProfile } from "./pages/EditProfile";
 import { PostBookReview } from "./pages/PostBookReview";
+import { BookReviewDetail } from "./pages/BookReviewDetail";
 
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/new",
     element: <PostBookReview />,
+  },
+  {
+    path: "/detail/:id",
+    element: <BookReviewDetail />,
   },
 ]);
 
