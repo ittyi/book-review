@@ -77,7 +77,7 @@ export const BookReviewEdit = () => {
       .catch((err) => {
         setErrorMessage(`${err.response.data.ErrorMessageJP}`);
       });
-	}, [])
+	}, [auth, cookies.token, bookId, nav])
 
   return (
     <>
